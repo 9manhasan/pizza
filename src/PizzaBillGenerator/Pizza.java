@@ -3,11 +3,13 @@ package PizzaBillGenerator;
 public class Pizza {
     private int Price;
     private boolean pizzatype;
-    private int extraCheesePrice =100;
-    private int extraToppingPrice = 150;
-    private int backPack = 20;
-    private int basePrice;
+    private final int extraCheesePrice =100;
+    private final int extraToppingPrice = 150;
+    private final int backPack = 20;
+    private final int basePrice;
+    private boolean isExtraCheeseAdded;
     private boolean takeawayStatus;
+    private boolean isExtraToppingAdded;
     public Pizza(boolean pizzatype)
     {
         this.pizzatype = pizzatype;
@@ -24,19 +26,27 @@ public class Pizza {
     //add extra cheese
     public void extraCheese(boolean ans)
     {
-
-        if(ans)this.Price += extraCheesePrice;
+        if(ans) {
+            this.Price += extraCheesePrice;
+            this.isExtraCheeseAdded = true;
+        } else{
+            this.isExtraCheeseAdded =  false;
+        }
     }
     //add extra toppings
     public void extraToppings(boolean ans)
     {
 
-        if(ans)this.Price += extraToppingPrice;
+        if(ans) {
+            this.Price += extraToppingPrice;
+            this.isExtraToppingAdded = true;
+        } else{
+            this.isExtraToppingAdded =  false;
+        }
     }
     //method for takeaway
     public void takeAway(boolean ans)
     {
-
         if(ans) {
             this.Price += backPack;
             this.takeawayStatus = true;
@@ -48,18 +58,19 @@ public class Pizza {
     //method for bill
     public void getBill()
     {
+        System.out.println("Base price : " + this.basePrice);
+        if(isExtraCheeseAdded)
+        {
+            System.out.println("Extra cheese added : " + this.extraCheesePrice);
+        }
+        if(isExtraToppingAdded)
+        {
+            System.out.println("Extra toppings added : " + this.extraToppingPrice);
+        }
         if(takeawayStatus)
         {
-            System.out.println("Base Pizza : " + this.basePrice);
-            System.out.println("Extra Cheese price : " + this.extraCheesePrice);
-            System.out.println("Extra topping price : " + this.extraToppingPrice);
             System.out.println("Packaging cost : " + this.backPack);
-            System.out.println("Total bill : " + this.Price);
-        } else {
-            System.out.println("Base Pizza : " + this.basePrice);
-            System.out.println("Extra Cheese price : " + this.extraCheesePrice);
-            System.out.println("Extra topping price : " + this.extraToppingPrice);
-            System.out.println("Total bill : " + this.Price);
         }
+        System.out.println("Total bill : " + this.Price);
     }
 }
